@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 @font-face {

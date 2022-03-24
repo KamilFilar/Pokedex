@@ -1,15 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './../views/home/Home.vue'
 import HomeList from './../views/home/HomeList.vue'
-//import PageNotFaund from './../views/page-not-found/PageNotFound.vue'
+import PageNotFaund from './../views/page-not-found/PageNotFound.vue'
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
     name: 'home',
     component: Home,
     children: [
@@ -24,11 +20,11 @@ const routes = [
     path: '/list',
     name: 'list',
     component: HomeList
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: PageNotFaund
   }
-  // {
-  //   path: '*',
-  //   component: PageNotFaund
-  // }
 ]
 
 const router = createRouter({
