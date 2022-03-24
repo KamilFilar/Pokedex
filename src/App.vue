@@ -5,13 +5,6 @@
 </template>
 
 <style>
-@font-face {
-  font-family: "Bungee";
-  src:
-    local("Bungee"), 
-    url('./assets/fonts/Bungee-Regular.ttf') format("truetype");
-}
-
 /* Global background */
 #app {
   background-image: url('./assets/images/background.png');
@@ -20,4 +13,27 @@
   background-size: cover;
   height: 100vh;
 }
+
+@font-face {
+  font-family: "Bungee";
+  src:
+    local("Bungee"), 
+    url('./assets/fonts/Bungee-Regular.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Italic";
+  src:
+    local("Raleway-Italic"), 
+    url('./assets/fonts/Raleway-Italic.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  src:
+    local("RedHatMono"), 
+    url('./assets/fonts/Raleway.ttf') format("truetype");
+}
+
+
 </style>

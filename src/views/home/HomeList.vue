@@ -17,6 +17,7 @@ export default {
 <style lang="css" scoped>
 .subtitle {
     font-size: 2rem;
+    color: red;
 }
 
 
