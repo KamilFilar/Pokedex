@@ -4,7 +4,7 @@ This is an application that uses the [pokeAPI](https://pokeapi.co/). It was made
 ## :sparkles: Get started: 
 This project was generated with [Vue CLI](https://cli.vuejs.org) version 5.0.0.
 
-## Project setup
+### Project setup
 ```
 npm install
 ```
