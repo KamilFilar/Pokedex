@@ -6,11 +6,21 @@
       </span>
     </h1>
     <h2>page not found</h2>
+    <router-link :to="'/'" class="return-btn">
+      <Button :btnName="'Return'" :btnIcon="'arrow-right-to-bracket'"/>
+    </router-link>
   </div>
 </template>
 
 <script>
+import Button from './../../components/Button.vue'  
+
 export default {
+  components: {
+    Button
+  },
+ 
+
   data() {
     return {
       errorChars: ["4", "0", "4"],
@@ -34,19 +44,20 @@ export default {
   h1,
   h2 {
     font-family: "Bungee", Arial, sans-serif;
+    transition: .3s;
   }
 
   h2 {
     position: relative;
-    margin-top: -40px;
+    margin-top: -70px;
     color: white;
-    font-size: 2rem;
-    letter-spacing: 1px;
+    font-size: 3rem;
+    letter-spacing: 2px;
   }
 
   h1 {
     color: rgb(255, 132, 0);
-    font-size: 3.5rem;
+    font-size: 4rem;
     letter-spacing: 10px;
   }
 
@@ -60,6 +71,28 @@ export default {
         span:nth-of-type(#{$i}) {
             animation-delay: $i* 0.1s;
         }
+    }
+  }
+
+  .return-btn {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .pnf-wrapper {
+    h2 {
+      margin-top: -40px;
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      letter-spacing: 10px;
     }
   }
 }
