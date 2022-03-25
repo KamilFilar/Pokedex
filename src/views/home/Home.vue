@@ -3,28 +3,28 @@
     <p class="title">
       pokedex
       <span class="title--color"> 
-        online 
+        online
       </span>
     </p>
     <div class="home__form">
       <p class="home__form--title">
         Search pokemon:
       </p>
-      <form>
-        <input 
-          type="text" 
-          placeholder="Pokemon name..." 
-          class="form__input" 
+      <form @submit.prevent>
+        <input
+          type="text"
+          placeholder="Pokemon name..."
+          class="form__input"
+          v-model="searchValue"
+          @keyup.enter="searchPokemon"
         />
-        <button class="form__btn">
+        <button class="form__btn" @click="searchPokemon">
           <font-awesome-icon icon="magnifying-glass" class="fa-search-icon" />
         </button>
       </form>
       <router-link :to="'/list'" class="home__form--href">
         <font-awesome-icon icon="angles-right" class="fa-icon fa-icon--left" />
-        <span>
-          Or check list of all pokemons
-        </span>
+        <span> Or check list of all pokemons </span>
         <font-awesome-icon icon="angles-right" class="fa-icon" />
       </router-link>
     </div>
@@ -32,8 +32,28 @@
 </template>
 
 <script>
+import axios from "axios";
+
+const API = "https://pokeapi.co/api/v2/pokemon";
+
 export default {
-  
+  data() {
+    return {
+      searchValue: "",
+    };
+  },
+  methods: {
+    searchPokemon() {
+      axios
+        .get(`${API}/${this.searchValue}`)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+    },
+  },
 };
 </script>
 
