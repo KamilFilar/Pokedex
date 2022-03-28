@@ -60,7 +60,7 @@ export default {
   position: relative;
   text-align: center;
   box-sizing: border-box;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .title {
