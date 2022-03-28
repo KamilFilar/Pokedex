@@ -37,10 +37,8 @@ export default {
 
   methods: {
     getPokemonData(url) {
-      axios
-        .get(url)
+      axios.get(url)
         .then((res) => {
-          console.log(res.data);
           this.pokeID = res.data.order;
           this.pokeImg = res.data.sprites.front_default;
           this.pokeType1 = res.data.types[0].type.name;
@@ -87,7 +85,7 @@ export default {
     margin: 0 auto;
 
     img {
-      width: 80%;
+      width: 75%;
       height: auto;
     }
   }
