@@ -9,11 +9,9 @@
       <button>Search</button>
     </div>
     <div class="list-box">
-      <PokeCard
-        :pokeID="'001'"
-        :pokeName="'Dupozaur'"
-        :pokeType1="'fire'"
-        :pokeType2="'fighting'"
+      <PokeCard v-for="(pokemon) in pokeArr" :key="pokemon.index"
+        :pokeName="pokemon.name"
+        :pokeURL="pokemon.url"
       />
     </div>
   </div>
@@ -21,34 +19,38 @@
 
 <script>
 import PokeCard from "./../../components/PokeCard.vue";
+import axios from "axios";
+
+const API = "https://pokeapi.co/api/v2/pokemon";
 
 export default {
   components: {
     PokeCard,
   },
-
   data() {
     return {
-      btnArray: [
-        "normal",
-        "fire",
-        "water",
-        "grass",
-        "electric",
-        "ice",
-        "fighting",
-        "poision",
-        "ground",
-        "flying",
-        "psychic",
-        "bug",
-        "rock",
-        "ghost",
-        "dark",
-        "dragon",
-        "steel",
-      ],
+      pokeArr: [],
     };
+  },
+  methods: {
+    getAllPokemon() {
+      axios
+        .get(`${API}/?limit=12`)
+        .then((res) => {
+          for (let i = 0; i < 100; i++) {
+            this.pokeArr.push({
+              name: res.data.results[i].name,
+              url: res.data.results[i].url
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+    },
+  },
+  mounted() {
+    this.getAllPokemon();
   },
 };
 </script>
@@ -75,6 +77,12 @@ export default {
   &--color {
     color: rgb(210, 110, 0);
   }
+}
+
+.list-box {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid red;
 }
 
 @media screen and (max-width: 660px) {
