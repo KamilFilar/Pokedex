@@ -13,7 +13,7 @@
       <form @submit.prevent>
         <input
           type="text"
-          placeholder="Pokemon name..."
+          placeholder="Pokemon name or id..."
           class="form__input"
           v-model="searchValue"
           @keyup.enter="searchPokemon"
@@ -44,8 +44,7 @@ export default {
   },
   methods: {
     searchPokemon() {
-      axios
-        .get(`${API}/${this.searchValue}`)
+      axios.get(`${API}/${this.searchValue}`)
         .then((res) => {
           console.log(res.data);
         })

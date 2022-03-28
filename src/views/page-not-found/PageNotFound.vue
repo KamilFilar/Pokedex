@@ -1,7 +1,7 @@
 <template>
   <div class="pnf-wrapper">
     <h1 class="pnf-wrapper__text is-animation">
-      <span v-for="(value, index) in errorChars" :key="index">
+      <span v-for="value in errorChars" :key="value.index">
         {{ value }}
       </span>
     </h1>
