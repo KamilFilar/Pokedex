@@ -26,19 +26,21 @@ const API = "https://pokeapi.co/api/v2/pokemon";
 
 export default {
   components: {
-    PokeCard,
+    PokeCard
   },
+
   data() {
     return {
       pokeArr: [],
+      current_page: 0
     };
   },
+
   methods: {
-    getAllPokemon() {
-      axios
-        .get(`${API}/?limit=12`)
+    getFirstPokemons() {
+      axios.get(`${API}/?limit=12`)
         .then((res) => {
-          for (let i = 0; i < 100; i++) {
+          for (let i = 0; i < 12; i++) {
             this.pokeArr.push({
               name: res.data.results[i].name,
               url: res.data.results[i].url,
@@ -49,11 +51,41 @@ export default {
           console.log(err.data);
         });
     },
+
+    getPokemons(scrollValue) {
+      scrollValue--; // start load from index = 12 so first scroll value must be 0
+      let pokemonIndex = 12 + (scrollValue * 12); // 12 'per display'
+
+      axios.get(`${API}/?limit=12&offset=${pokemonIndex}`)
+        .then((res) => {
+          for (let i = 0; i < 100; i++) {
+            this.pokeArr.push({
+              name: res.data.results[i].name,
+              url: res.data.results[i].url,
+            });
+          }
+        })
+        .catch((err) => {
+          if (!err.data == undefined ) console.log(err);
+        });
+    },
+
+    onScrollLoadContent() {
+      window.addEventListener('scroll', () => {
+        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+        if ( (scrollTop + clientHeight) >= scrollHeight) {
+          this.current_page++;
+          this.getPokemons(this.current_page);
+        }
+      })
+    }
   },
+
   mounted() {
-    this.getAllPokemon();
-  },
-};
+    this.getFirstPokemons();
+    this.onScrollLoadContent();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -126,7 +158,7 @@ export default {
   }
   .search-box {
     margin-bottom: 15px;
-    
+
     input {
       width: 250px !important;
       font-size: 1rem;

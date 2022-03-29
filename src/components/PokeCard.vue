@@ -13,7 +13,7 @@
       <p class="description--type-left" :class="pokeType1">
         {{ pokeType1 }}
       </p>
-      <p class="description--type-right" :class="pokeType2">
+      <p class="description--type-right" :class="pokeType2" v-if="pokeType2 != undefined">
         {{ pokeType2 }}
       </p>
     </div>
@@ -41,8 +41,15 @@ export default {
         .then((res) => {
           this.pokeID = res.data.order;
           this.pokeImg = res.data.sprites.front_default;
-          this.pokeType1 = res.data.types[0].type.name;
-          this.pokeType2 = res.data.types[1].type.name;
+
+          if ( res.data.types.length == 2 ) {
+            this.pokeType1 = res.data.types[0].type.name;
+            this.pokeType2 = res.data.types[1].type.name;
+          }
+          else {
+            this.pokeType1 = res.data.types[0].type.name;
+            this.pokeType2 = undefined;
+          }
         })
         .catch((err) => {
           console.log(err);
