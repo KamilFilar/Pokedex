@@ -5,7 +5,12 @@
       <span class="title--color"> List </span>
     </p>
     <div class="search-box">
-      <input placeholder="Pick id or name pokemon..." type="text" />
+      <div class="search-box__btns">
+        <button v-for="region in pokeRegion" :key="region.index">
+          {{ region }}
+        </button>
+      </div>
+      <input placeholder="Pick id or pokemon name..." type="text" />
     </div>
     <div class="list-box">
       <PokeCard
@@ -32,6 +37,7 @@ export default {
   data() {
     return {
       pokeArr: [],
+      pokeRegion: ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar'],
       current_page: 0
     };
   },
@@ -72,7 +78,7 @@ export default {
 
     onScrollLoadContent() {
       window.addEventListener('scroll', () => {
-        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;        
         if ( (scrollTop + clientHeight) >= scrollHeight) {
           this.current_page++;
           this.getPokemons(this.current_page);
@@ -94,6 +100,7 @@ export default {
   text-align: center;
   box-sizing: border-box;
   min-height: 100vh;
+  padding-bottom: 30px;
 }
 
 .title {
@@ -114,6 +121,31 @@ export default {
 
 .search-box {
   margin-bottom: 30px;
+
+  &__btns {
+    display: block;
+    font-family: "Raleway", Arial, sans-serif;
+    font-weight: bold;
+    margin: 0 0 25px;
+
+    button {
+      margin: 0 5px;
+      padding: 6px 10px;
+      font-size: 1.1rem;
+      letter-spacing: 1.5px;
+      border: 2px solid rgb(210, 110, 0);
+      border-radius: 5px;
+      color: white;
+      background: rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: black;
+        border: 2px solid rgb(255, 160, 60);
+      }
+    }
+  }
 
   input {
     width: 60%;

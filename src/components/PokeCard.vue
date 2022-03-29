@@ -209,4 +209,8 @@ export default {
 .steel {
   background: steelblue;
 }
+
+.fairy {
+  background: plum;
+}
 </style>
