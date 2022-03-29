@@ -10,7 +10,12 @@
           {{ region }}
         </button>
       </div>
-      <input placeholder="Pick id or pokemon name..." type="text" />
+      <input 
+        placeholder="Pick id or pokemon name..." 
+        type="text"
+        v-model="searchValue"
+        @input="searchPokemon" 
+      />
     </div>
     <div class="list-box">
       <PokeCard
@@ -25,6 +30,7 @@
 
 <script>
 import PokeCard from "./../../components/PokeCard.vue";
+import debounce from 'lodash.debounce';
 import axios from "axios";
 
 const API = "https://pokeapi.co/api/v2/pokemon";
@@ -38,11 +44,35 @@ export default {
     return {
       pokeArr: [],
       pokeRegion: ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar'],
-      current_page: 0
+      searchValue: ''
     };
   },
 
   methods: {
+    searchPokemon: 
+      debounce( function() {
+        axios.get(`${API}/${this.searchValue}`)
+          .then( (res) => {
+            console.log(res.data)
+          })
+          .catch( (err) => {
+            console.log(err);
+            this.$swal({
+              customClass: {
+                confirmButton: 'sweet-alert-button-wrong',
+                popup: "sweet-alert-popup-wrong",
+                text: "sweet-alert-title"
+              },
+              text: 'Pokemon not found! Please enter a valid name or ID. 😥',
+              buttonsStyling: false,
+              icon: 'error',
+              iconColor: 'rgb(220, 0, 0)',
+              confirmButtonText: 'Close'
+            });
+          })
+      }, 500),
+    
+
     getFirstPokemons() {
       axios.get(`${API}/?limit=12`)
         .then((res) => {
@@ -54,7 +84,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.data);
+          console.log(err);
         });
     },
 
@@ -129,7 +159,7 @@ export default {
     margin: 0 0 25px;
 
     button {
-      margin: 0 5px;
+      margin: 5px 7px;
       padding: 6px 10px;
       font-size: 1.1rem;
       letter-spacing: 1.5px;

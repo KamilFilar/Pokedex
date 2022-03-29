@@ -39,6 +39,7 @@
   background: none;
   border: 1px solid rgb(220, 0, 0);
   border-radius: 5px;
+  outline: none;
   color: rgb(220, 0, 0);
   padding: 3px 5px;
   font-family: "Raleway", Arial, sans-serif;
