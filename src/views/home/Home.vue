@@ -49,7 +49,21 @@ export default {
           console.log(res.data);
         })
         .catch((err) => {
-          console.log(err.data);
+          console.log(err);
+          this.$swal({
+            customClass: {
+              confirmButton: 'sweet-alert-button-wrong',
+              popup: "sweet-alert-popup-wrong",
+              text: "sweet-alert-title"
+            },
+            background: 'rgba(0, 0, 0, 0.9)',
+            text: 'Pokemon not found! Please enter a valid name or ID. 😥',
+
+            buttonsStyling: false,
+            icon: 'error',
+            iconColor: 'rgb(220, 0, 0)',
+            confirmButtonText: 'Close'
+          });
         });
     },
   },
