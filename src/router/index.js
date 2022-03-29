@@ -2,24 +2,23 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './../views/home/Home.vue'
 import HomeList from './../views/home/HomeList.vue'
 import PageNotFaund from './../views/page-not-found/PageNotFound.vue'
+import PokemonDetails from './../components/PokemonDetails.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
-    children: [
-      {
-        path: '/list',
-        name: 'list',
-        component: HomeList
-      }
-    ]
+    component: Home
   },
   {
     path: '/list',
     name: 'list',
-    component: HomeList
+    component: HomeList,
+  },
+  {
+    path: '/list/:name', // As children don't work correctly now ;/ 
+    name: 'pokeDetails',
+    component: PokemonDetails
   },
   {
     path: '/:pathMatch(.*)*',
