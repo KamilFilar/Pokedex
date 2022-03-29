@@ -41,7 +41,6 @@ export default {
         .then((res) => {
           this.pokeID = res.data.order;
           this.pokeImg = res.data.sprites.front_default;
-
           if ( res.data.types.length == 2 ) {
             this.pokeType1 = res.data.types[0].type.name;
             this.pokeType2 = res.data.types[1].type.name;
