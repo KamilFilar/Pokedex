@@ -22,26 +22,33 @@
           <font-awesome-icon icon="magnifying-glass" class="fa-search-icon" />
         </button>
       </form>
-      <router-link :to="'/list'" class="home__form--href">
-        <font-awesome-icon icon="angles-right" class="fa-icon fa-icon--left" />
-        <span> Or check list of all pokemons </span>
-        <font-awesome-icon icon="angles-right" class="fa-icon" />
-      </router-link>
+      <ButtonRoute 
+        :target="'/list'" 
+        :text="'Return to list'"
+        :iconLeft="'angles-right'"
+        :iconRight="'angles-right'"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ButtonRoute from "@/components/buttons/ButtonRoute.vue";
 
 const API = "https://pokeapi.co/api/v2/pokemon";
 
 export default {
+  components: {
+    ButtonRoute
+  },
+
   data() {
     return {
       searchValue: "",
     };
   },
+
   methods: {
     searchPokemon() {
       axios.get(`${API}/${this.searchValue}`)
@@ -74,16 +81,16 @@ export default {
   text-align: center;
   box-sizing: border-box;
   min-height: 100vh;
+  height: 100%;
 }
 
 .title {
+  margin: 0;
   font-family: "Bungee", Arial, sans-serif;
   font-size: 4rem;
   font-weight: bold;
-  text-transform: uppercase;
   letter-spacing: 3px;
   color: white;
-  margin: 0;
   cursor: context-menu;
   transition-duration: 0.3s;
 
@@ -110,7 +117,7 @@ export default {
 
   &--title {
     color: white;
-    margin: 0 0 7px 0;
+    margin: 0 0 7px;
     font-size: 1.35rem;
     font-weight: bold;
     letter-spacing: 2.5px;
@@ -138,6 +145,7 @@ export default {
   }
 
   form {
+    margin: 0 0 15px;
     padding: 5px 0;
     display: flex;
     align-items: center;
@@ -145,8 +153,8 @@ export default {
 
     .form__input {
       width: 300px;
-      height: auto;
-      padding: 10px 0px 5px 5px;
+      height: 28px;
+      padding: 10px 0px 2px 5px;
       background: rgba(0, 0, 0, 0.5);
       border-top: none;
       border-left: none;
@@ -176,15 +184,6 @@ export default {
       outline: none;
       font-size: 1.9rem;
     }
-  }
-}
-
-.fa-icon {
-  opacity: 0;
-  margin: -1px 0 0 3px;
-
-  &--left {
-    margin: -1px 4px 0 0;
   }
 }
 
