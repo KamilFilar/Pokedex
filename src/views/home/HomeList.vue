@@ -5,11 +5,11 @@
       <span class="title--color"> List </span>
     </p>
     <div class="search-box">
-      <div class="search-box__btns">
+      <!-- <div class="search-box__btns">
         <button v-for="region in pokeRegion" :key="region.index">
           {{ region }}
         </button>
-      </div>
+      </div> -->
       <input 
         placeholder="Pick id or pokemon name..." 
         type="text"

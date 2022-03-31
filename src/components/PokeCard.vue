@@ -1,23 +1,25 @@
 <template>
-  <div class="wrapper">
-    <div class="img-container">
-      <img :src="pokeImg" />
+  <router-link :to="'/list/'+this.pokeName">
+    <div class="wrapper">
+      <div class="img-container">
+        <img :src="pokeImg" />
+      </div>
+      <div class="description">
+        <p class="description--id">
+          #{{ setPokedexNumber(pokeID) }}
+        </p>
+        <p class="description--name">
+          {{ firstLetterUp(pokeName) }}
+        </p>
+        <p class="description--type-left" :class="pokeType1">
+          {{ pokeType1 }}
+        </p>
+        <p class="description--type-right" :class="pokeType2" v-if="pokeType2 != undefined">
+          {{ pokeType2 }}
+        </p>
+      </div>
     </div>
-    <div class="description">
-      <p class="description--id">
-        #{{ setPokedexNumber(pokeID) }}
-      </p>
-      <p class="description--name">
-        {{ firstLetterUp(pokeName) }}
-      </p>
-      <p class="description--type-left" :class="pokeType1">
-        {{ pokeType1 }}
-      </p>
-      <p class="description--type-right" :class="pokeType2" v-if="pokeType2 != undefined">
-        {{ pokeType2 }}
-      </p>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -74,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/styles/pokemonTypes.scss';
+@import '@/assets/styles/pokemonTypes.scss';
 
 .wrapper {
   width: 280px;

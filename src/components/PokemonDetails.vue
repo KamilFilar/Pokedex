@@ -75,14 +75,14 @@ import Button from "./Button.vue";
 const API = "https://pokeapi.co/api/v2/";
 
 export default {
-  //   props: ["pokemonID"],
+
   components: {
     Button,
   },
 
   data() {
     return {
-      pokemonID: 4,
+      pokemonID: this.$route.fullPath.replace(`/list/`, ""),
       currentPokemonID: 0,
       pokemonObj: {
         id: "",
@@ -104,11 +104,10 @@ export default {
 
   methods: {
     getPokemon(id) {
-      this.currentPokemonID = id;
       axios.get(`${API}` + `pokemon/` + id)
         .then((res) => {
           // console.log(res.data)
-          this.pokemonObj.id = res.data.id;
+          this.pokemonObj.id = this.currentPokemonID = res.data.id;
           this.pokemonObj.name = res.data.species.name;
           this.pokemonObj.imgPath = res.data.sprites.front_default;
           this.pokemonObj.height = res.data.height;
@@ -153,8 +152,17 @@ export default {
     },
 
     getNextPokemon() {
+      let nextPokemonName;
       this.currentPokemonID++;
-      this.getPokemon(this.currentPokemonID);
+      axios.get(`${API}` + `pokemon/` + this.currentPokemonID)
+        .then( (res) => { 
+          nextPokemonName = res.data.species.name;
+          this.$router.push('/list/'+nextPokemonName);
+          this.getPokemon(nextPokemonName);
+        })
+        .catch( (err) => {
+          console.log(err);
+        }) 
     },
 
     getPreviousPokemon() {
@@ -174,7 +182,16 @@ export default {
         });
       }
       else {
-        this.getPokemon(this.currentPokemonID);
+        let previousPokemonName;
+        axios.get(`${API}` + `pokemon/` + this.currentPokemonID)
+          .then( (res) => { 
+            previousPokemonName = res.data.species.name;
+            this.$router.push('/list/'+previousPokemonName);
+            this.getPokemon(previousPokemonName);
+          })
+          .catch( (err) => {
+            console.log(err);
+          }) 
       }
     },
 
@@ -201,7 +218,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/styles/pokemonTypes.scss";
+@import "@/assets/styles/pokemonTypes.scss";
 .router-link {
 width: 280px;
     color: rgb(190, 190, 190);
