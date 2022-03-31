@@ -47,7 +47,7 @@ button {
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgb(255, 132, 0);
-  background: none;
+  background: rgba(0, 0, 0, 0.7);
   outline: none;
   transition: .3s;
 

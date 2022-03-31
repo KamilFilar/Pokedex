@@ -5,14 +5,22 @@
       <span class="title--color"> Details </span>
     </p>
     <div class="btn-wrapper">
-      <Button :btnName="'Previous'" :btnIcon="'arrow-left'" @click="getPreviousPokemon()"/>
-      <Button :btnName="'Next'" :btnIcon="'arrow-right'" @click="getNextPokemon()"/>
+      <Button
+        :btnName="'Previous'"
+        :btnIcon="'arrow-left'"
+        @click="getPreviousPokemon()"
+      />
+      <Button
+        :btnName="'Next'"
+        :btnIcon="'arrow-right'"
+        @click="getNextPokemon()"
+      />
     </div>
     <div class="pokemonDetails-box">
       <div class="pokemonDetails-box__img">
         <img :src="pokemonObj.imgPath" />
       </div>
-      <div class="pokemonDetails-box__header">
+      <div class="pokemonDetails-box__content">
         <div class="header-text">
           <p class="header-text--title">
             {{ firstLetterUp(pokemonObj.name) }}
@@ -31,12 +39,10 @@
             {{ pokemonObj.pokeType2 }}
           </p>
         </div>
-      </div>
-      <div class="pokemonDetails-box__body">
-        <p class="pokemonDetails-box__body--desc">
+        <p class="body--desc">
           {{ removeSpecialChars(pokemonObj.description) }}
         </p>
-        <div class="pokemonDetails-box__body__stats">
+        <div class="body__stats">
           <p>
             Region:
             <span> {{ firstLetterUp(pokemonObj.region) }} </span>
@@ -60,24 +66,26 @@
         </div>
       </div>
     </div>
-    <router-link :to="'/list'" class="router-link">
-      <font-awesome-icon icon="angles-left" class="fa-icon fa-icon--left" />
-      <span> Back to list </span>
-      <font-awesome-icon icon="angles-left" class="fa-icon" />
-    </router-link>
+    <ButtonRoute 
+      :target="'/list'" 
+      :text="'Return to list'"
+      :iconLeft="'angles-left'"
+      :iconRight="'angles-left'"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Button from "./Button.vue";
+import ButtonRoute from "./buttons/ButtonRoute.vue";
 
 const API = "https://pokeapi.co/api/v2/";
 
 export default {
-
   components: {
     Button,
+    ButtonRoute
   },
 
   data() {
@@ -104,7 +112,8 @@ export default {
 
   methods: {
     getPokemon(id) {
-      axios.get(`${API}` + `pokemon/` + id)
+      axios
+        .get(`${API}` + `pokemon/` + id)
         .then((res) => {
           // console.log(res.data)
           this.pokemonObj.id = this.currentPokemonID = res.data.id;
@@ -115,16 +124,14 @@ export default {
           if (res.data.abilities.length == 2) {
             this.pokemonObj.abilities1 = res.data.abilities[0].ability.name;
             this.pokemonObj.abilities2 = res.data.abilities[1].ability.name;
-          } 
-          else {
+          } else {
             this.pokemonObj.abilities1 = res.data.abilities[0].ability.name;
-            this.pokemonObj.abilities2 = '---';
+            this.pokemonObj.abilities2 = "---";
           }
           if (res.data.types.length == 2) {
             this.pokemonObj.pokeType1 = res.data.types[0].type.name;
             this.pokemonObj.pokeType2 = res.data.types[1].type.name;
-          } 
-          else {
+          } else {
             this.pokemonObj.pokeType1 = res.data.types[0].type.name;
             this.pokemonObj.pokeType2 = undefined;
           }
@@ -133,12 +140,15 @@ export default {
           console.log(err);
         });
 
-      axios.get(`${API}` + `pokemon-species/` + id)
+      axios
+        .get(`${API}` + `pokemon-species/` + id)
         .then((res) => {
           // console.log(res.data)
-          this.pokemonObj.description = res.data.flavor_text_entries[1].flavor_text;
+          this.pokemonObj.description =
+            res.data.flavor_text_entries[1].flavor_text;
           this.pokemonObj.generation = res.data.generation.name;
-          axios.get(`${API}` + `generation/` + this.pokemonObj.generation)
+          axios
+            .get(`${API}` + `generation/` + this.pokemonObj.generation)
             .then((res) => {
               this.pokemonObj.region = res.data.main_region.name;
             })
@@ -154,15 +164,16 @@ export default {
     getNextPokemon() {
       let nextPokemonName;
       this.currentPokemonID++;
-      axios.get(`${API}` + `pokemon/` + this.currentPokemonID)
-        .then( (res) => { 
+      axios
+        .get(`${API}` + `pokemon/` + this.currentPokemonID)
+        .then((res) => {
           nextPokemonName = res.data.species.name;
-          this.$router.push('/list/'+nextPokemonName);
+          this.$router.push("/list/" + nextPokemonName);
           this.getPokemon(nextPokemonName);
         })
-        .catch( (err) => {
+        .catch((err) => {
           console.log(err);
-        }) 
+        });
     },
 
     getPreviousPokemon() {
@@ -180,18 +191,18 @@ export default {
           iconColor: "rgb(220, 0, 0)",
           confirmButtonText: "Close",
         });
-      }
-      else {
+      } else {
         let previousPokemonName;
-        axios.get(`${API}` + `pokemon/` + this.currentPokemonID)
-          .then( (res) => { 
+        axios
+          .get(`${API}` + `pokemon/` + this.currentPokemonID)
+          .then((res) => {
             previousPokemonName = res.data.species.name;
-            this.$router.push('/list/'+previousPokemonName);
+            this.$router.push("/list/" + previousPokemonName);
             this.getPokemon(previousPokemonName);
           })
-          .catch( (err) => {
+          .catch((err) => {
             console.log(err);
-          }) 
+          });
       }
     },
 
@@ -219,34 +230,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/styles/pokemonTypes.scss";
-.router-link {
-width: 280px;
-    color: rgb(190, 190, 190);
-    padding: 5px 0;
-    margin: 15px auto;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: 0.5s;
-
-    &:hover {
-      color: rgb(255, 132, 0);
-    }
-
-    &:hover .fa-icon {
-      opacity: 1;
-      transition: opacity 0.25s linear;
-    }
-}
-
-.fa-icon {
-  opacity: 0;
-  margin: -1px 0 0 3px;
-
-  &--left {
-    margin: -1px 4px 0 0;
-  }
-}
 
 .wrapper {
   position: relative;
@@ -254,6 +237,7 @@ width: 280px;
   box-sizing: border-box;
   min-height: 100vh;
   padding-bottom: 15px;
+  margin: 0 10%;
 }
 
 .title {
@@ -279,35 +263,41 @@ width: 280px;
 }
 
 .pokemonDetails-box {
-  margin: 15px auto;
-  padding: 7px;
-  width: 90%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 3px black;
   border-radius: 3px;
 
   &__img {
-    box-shadow: 0 0 7px black;
-    border-radius: 3px;
-    background: rgb(250, 250, 250);
-
+    margin: 10px;
+      
     img {
-      width: 80%;
+      box-shadow: 0 0 7px black;
+      border-radius: 3px;
+      background: rgb(250, 250, 250);
+      width: 100%;
       height: auto;
+      transition: 0.3s;
     }
   }
 
-  &__header {
+  &__content {
+    text-align: left;
     font-family: "Raleway", Arial, sans-serif;
+    font-weight: bold;
     margin: 10px;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
 
     .header-text {
       display: flex;
       justify-content: space-between;
+      margin-top: 15px;
 
       &--title {
         display: inherit;
-        align-items: center;
         font-size: 2rem;
         font-weight: bold;
         letter-spacing: 1px;
@@ -315,7 +305,8 @@ width: 280px;
       }
 
       &--id {
-        font-size: 1.3rem;
+        margin: -15px 10px 0 0;
+        font-size: 1.4rem;
         color: rgb(65, 65, 65);
       }
     }
@@ -323,6 +314,7 @@ width: 280px;
     .header-types {
       display: flex;
       justify-content: center;
+      margin: 20px 0;
 
       &--left,
       &--right {
@@ -345,18 +337,9 @@ width: 280px;
     p {
       margin: 0;
     }
-  }
 
-  &__body {
-    text-align: left;
-    font-family: "Raleway", Arial, sans-serif;
-    font-weight: bold;
-    margin: 10px 0;
-    font-size: 1.1rem;
-    line-height: 1.4rem;
-
-    &--desc {
-      margin: 0;
+    .body--desc {
+      margin: 0 0 15px;
       padding: 5px 8px;
       color: rgb(25, 25, 25);
       text-align: left;
@@ -366,12 +349,12 @@ width: 280px;
       border-radius: 3px;
     }
 
-    &__stats {
+    .body__stats {
       letter-spacing: 1px;
       margin: 10px 3px;
 
       p {
-        margin: 7px 0;
+        margin: 8px 0;
         font-size: 1.1rem;
         color: rgb(65, 65, 65);
 
@@ -383,9 +366,24 @@ width: 280px;
   }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 730px) {
+  .wrapper {
+    margin: 0 5%;
+  }
+  
   .title {
     font-size: 2rem;
+  }
+
+  .pokemonDetails-box {
+    display: block;
+    padding-bottom: 10px;
+    
+    &__img {    
+      img {
+        margin-top: 10px;
+      }
+    }
   }
 }
 </style>
