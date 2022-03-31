@@ -24,7 +24,7 @@
       </form>
       <ButtonRoute 
         :target="'/list'" 
-        :text="'Return to list'"
+        :text="'Chcek list of all pokemon'"
         :iconLeft="'angles-right'"
         :iconRight="'angles-right'"
       />
@@ -118,7 +118,7 @@ export default {
   &--title {
     color: white;
     margin: 0 0 7px;
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     font-weight: bold;
     letter-spacing: 2.5px;
     cursor: context-menu;

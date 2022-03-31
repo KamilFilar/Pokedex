@@ -77,7 +77,7 @@
 
 <script>
 import axios from "axios";
-import Button from "./Button.vue";
+import Button from "./buttons/Button.vue";
 import ButtonRoute from "./buttons/ButtonRoute.vue";
 
 const API = "https://pokeapi.co/api/v2/";
