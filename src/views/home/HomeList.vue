@@ -44,7 +44,8 @@ export default {
     return {
       pokeArr: [],
       pokeRegion: ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar'],
-      searchValue: ''
+      searchValue: '',
+      current_page: 0
     };
   },
 

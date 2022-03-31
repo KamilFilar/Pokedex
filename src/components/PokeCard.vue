@@ -74,6 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import './../assets/styles/pokemonTypes.scss';
+
 .wrapper {
   width: 280px;
   background: rgba(245, 245, 245, 0.85);
@@ -138,78 +140,5 @@ export default {
   .wrapper {
     width: 90%;
   }
-}
-
-// types color classes
-.normal {
-  background: rgb(105, 105, 105);
-}
-
-.fire {
-  background: rgb(250, 158, 0);
-}
-
-.water {
-  background: rgb(0, 88, 219);
-}
-
-.ice {
-  background: rgb(0, 210, 210);
-}
-
-.grass {
-  background: rgb(0, 210, 0);
-}
-
-.electric {
-  background: rgb(223, 189, 0);
-}
-
-.fighting {
-  background: rgb(192, 0, 0);
-}
-
-.poison {
-  background: rgb(173, 0, 173);
-}
-
-.ground {
-  background: rgb(141, 98, 5);
-}
-
-.bug {
-  background: rgb(0, 160, 0);
-}
-
-.flying {
-  background: rgb(115, 179, 179);
-}
-
-.psychic {
-  background: rgb(226, 171, 180);
-}
-
-.rock {
-  background: rgb(129, 129, 93);
-}
-
-.ghost {
-  background: rgb(94, 0, 94);
-}
-
-.dark {
-  background: rgb(32, 32, 32);
-}
-
-.dragon {
-  background: rgb(255, 113, 113);
-}
-
-.steel {
-  background: steelblue;
-}
-
-.fairy {
-  background: plum;
 }
 </style>
