@@ -75,10 +75,15 @@ button {
   }
 
   &:hover {
-    cursor: pointer;  
-    padding: 8px 20px;
+    cursor: pointer; 
+    background: black;
+
     span {
-        letter-spacing: 3px;
+      color: rgb(255, 132, 0);
+    }
+
+    .icon {
+      color: white;
     }
   }
 }
