@@ -5,11 +5,6 @@
       <span class="title--color"> List </span>
     </p>
     <div class="search-box">
-      <!-- <div class="search-box__btns">
-        <button v-for="region in pokeRegion" :key="region.index">
-          {{ region }}
-        </button>
-      </div> -->
       <input 
         placeholder="Pick id or pokemon name..." 
         type="text"
@@ -54,7 +49,7 @@ export default {
       debounce( function() {
         axios.get(`${API}/${this.searchValue}`)
           .then( (res) => {
-            console.log(res.data)
+            this.$router.push('/list/'+res.data.species.name);
           })
           .catch( (err) => {
             console.log(err);
@@ -208,7 +203,7 @@ export default {
 .list-box {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 40px;
+  justify-content: center;
 }
 
 @media screen and (max-width: 660px) {

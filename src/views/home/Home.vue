@@ -46,7 +46,7 @@ export default {
     searchPokemon() {
       axios.get(`${API}/${this.searchValue}`)
         .then((res) => {
-          console.log(res.data);
+          this.$router.push('/list/'+res.data.species.name);
         })
         .catch((err) => {
           console.log(err);

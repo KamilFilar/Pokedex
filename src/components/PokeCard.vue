@@ -41,7 +41,7 @@ export default {
     getPokemonData(url) {
       axios.get(url)
         .then((res) => {
-          this.pokeID = res.data.order;
+          this.pokeID = res.data.id;
           this.pokeImg = res.data.sprites.front_default;
           if ( res.data.types.length == 2 ) {
             this.pokeType1 = res.data.types[0].type.name;
@@ -78,11 +78,15 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/pokemonTypes.scss';
 
+a { 
+  text-decoration: none; 
+}
+
 .wrapper {
   width: 280px;
   background: rgba(245, 245, 245, 0.85);
   box-shadow: 0 0 3px black;
-  margin: 10px auto;
+  margin: 10px 5px;
   padding: 7px;
   border-radius: 5px;
 
